@@ -1,0 +1,53 @@
+#-*- coding:utf8 -*-
+from flask import Flask,request,make_response,render_template
+import hashlib
+from lxml import etree
+import xml.etree.ElementTree as ET
+import time
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+	return "haibo,I love you"
+
+
+@app.route( '/weixin', methods=['GET','POST'])
+def wechat_auth():
+  if request.method == 'GET':
+    token = 'hbnnforever'
+    query = request.args
+    signature = query.get('signature')
+    timestamp = query.get('timestamp')
+    nonce = query.get('nonce')
+    echostr = query.get('echostr')
+    s = [timestamp, nonce, token]
+    s.sort()
+    s = ''.join(s)
+    if ( hashlib.sha1(s).hexdigest() == signature ):  
+        return make_response(echostr)
+    else:
+        return 'auth fail'
+        
+  # Get the infomations from the recv_xml.
+  xml_recv = ET.fromstring(request.data)
+  ToUserName = xml_recv.find("ToUserName").text
+  FromUserName = xml_recv.find("FromUserName").text
+  msgtype = xml_recv.find("MsgType").text
+  if msgtype == 'event':
+	  content = xmk_recv.find('Event').text
+	  if content == 'subscribe':
+		  reply = u'欢迎关注我，这里装满王海波和马娜的爱情记忆'
+	  elif content == 'unsubscribe':
+		  reply == u'舍不得你'
+	  else:
+		  pass
+  elif msgtype == 'text':
+	  Content = xml_recv.find("Content").text
+	  reply = Content
+  else:
+	  pass
+  reply_xml = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content><FuncFlag>0</FuncFlag></xml>"  
+  response = make_response( reply_xml % (FromUserName, ToUserName, str(int(time.time())), reply))  
+  response.content_type = 'application/xml'   
+  return response  
