@@ -1,0 +1,120 @@
+{% extends "area_layout.html" %}
+{% block chart %}
+                <div class="span9" id="content">
+                      <!-- morris stacked chart -->
+
+                    <div class="row-fluid">
+
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header">
+                                <div class="muted pull-left">原始下载量top100统计</div>
+                            </div>
+
+
+                            <div class="block-content collapse in">
+                                <div class="span12">
+                                    <form class="form-horizontal" action="/initdownload">
+                                      <fieldset>
+                                        <legend>输入需要查询的日期</legend>
+
+{#                                        <style type="text/css">.controls{float:left;}</style>#}
+
+                                        <div class="control-group">
+                                          <label class="control-label" for="date01">日期:</label>
+                                          <div class="controls">
+                                            <input type="text" class="input-xlarge datepicker" id="date01" name="querydate" value="{{ querydate }}">
+                                          </div>
+                                        </div>
+                                        <div class="form-actions">
+                                          <button type="submit" class="btn btn-primary">查询</button>
+                                          <button type="reset" class="btn">重置</button>
+                                        </div>
+                                      </fieldset>
+                                    </form>
+
+                            </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+         
+                    
+
+
+                   
+
+
+                </div>
+                {% endblock %}
+
+    {% block js %}
+        <link rel="stylesheet" href="{{ url_for('static',filename='vendors/morris/morris.css')}}">
+
+
+        <script src="{{ url_for('static',filename='vendors/jquery-1.9.1.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/jquery.knob.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/raphael-min.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/morris/morris.min.js')}}"></script>
+
+        <script src="{{ url_for('static',filename='bootstrap/js/bootstrap.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/flot/jquery.flot.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/flot/jquery.flot.categories.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/flot/jquery.flot.pie.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/flot/jquery.flot.time.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/flot/jquery.flot.stack.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/flot/jquery.flot.resize.js')}}"></script>
+
+                <script src="{{ url_for('static',filename='assets/scripts.js')}}"></script>
+        <link href="{{ url_for('static',filename='vendors/datepicker.css')}}" rel="stylesheet" media="screen">
+        <link href="{{ url_for('static',filename='vendors/uniform.default.css')}}" rel="stylesheet" media="screen">
+        <link href="{{ url_for('static',filename='vendors/chosen.min.css')}}" rel="stylesheet" media="screen">
+        <link href="{{ url_for('static',filename='vendors/wysiwyg/bootstrap-wysihtml5.css')}}" rel="stylesheet" media="screen">
+
+        <script src="{{ url_for('static',filename='vendors/jquery-1.9.1.js')}}"></script>
+        <script src="{{ url_for('static',filename='bootstrap/js/bootstrap.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/jquery.uniform.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/chosen.jquery.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/bootstrap-datepicker.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/wysiwyg/wysihtml5-0.3.0.js')}}"></script>
+        <script src="{{ url_for('static',filename='vendors/wizard/jquery.bootstrap.wizard.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='assets/scripts.js')}}"></script>
+
+        <script>
+        $(function() {
+            $(".datepicker").datepicker();
+            $(".uniform_on").uniform();
+            $(".chzn-select").chosen();
+            $('.textarea').wysihtml5();
+
+            $('#rootwizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
+                var $total = navigation.find('li').length;
+                var $current = index+1;
+                var $percent = ($current/$total) * 100;
+                $('#rootwizard').find('.bar').css({width:$percent+'%'});
+                // If it's the last tab then hide the last button and show the finish instead
+                if($current >= $total) {
+                    $('#rootwizard').find('.pager .next').hide();
+                    $('#rootwizard').find('.pager .finish').show();
+                    $('#rootwizard').find('.pager .finish').removeClass('disabled');
+                } else {
+                    $('#rootwizard').find('.pager .next').show();
+                    $('#rootwizard').find('.pager .finish').hide();
+                }
+            }});
+            $('#rootwizard .finish').click(function() {
+                alert('Finished!, Starting over!');
+                $('#rootwizard').find("a[href*='tab1']").trigger('click');
+            });
+        });
+        </script>
+ 
+        <script>
+       
+        function labelFormatter(label, series) {
+            return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+        }
+        </script>
+
+    {% endblock %}
+ 

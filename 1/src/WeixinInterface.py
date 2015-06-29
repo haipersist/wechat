@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-	return "haibo,I love you"
+	return render_template('hello.html')
 
 
 @app.route( '/weixin', methods=['GET','POST'])
@@ -58,7 +58,7 @@ def wechat_auth():
 
 
 
-@app.route('/python_job')
+@app.route('/job')
 def Job():
     pass
 

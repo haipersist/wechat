@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+      <title>{{title}}</title>
+        <!-- Bootstrap -->
+
+        <script src="{{ url_for('static',filename ='vendors/jquery-1.9.1.min.js')}}"></script>
+        <script src="{{ url_for('static',filename ='bootstrap/js/bootstrap.min.js')}}"></script>
+        <script src="{{ url_for('static',filename ='vendors/easypiechart/jquery.easy-pie-chart.js')}}"></script>
+        <script src="{{ url_for('static',filename ='assets/scripts.js')}}"></script>
+
+        <link href="{{ url_for('static',filename ='bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
+        <link href="{{ url_for('static',filename ='bootstrap/css/bootstrap-responsive.min.css')}}" rel="stylesheet" media="screen">
+        <link href="{{ url_for('static',filename ='assets/styles.css')}}" rel="stylesheet" media="screen">
+        <link href="{{ url_for('static',filename ='vendors/jGrowl/jquery.jgrowl.css')}}" rel="stylesheet" media="screen">
+        <link href="{{ url_for('static',filename ='assets/DT_bootstrap.css')}}" rel="stylesheet" media="screen">
+        <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="vendors/flot/excanvas.min.js"></script><![endif]-->
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <![endif]-->
+{#        <script src="{{ url_for('static',filename='vendors/modernizr-2.6.2-respond-1.1.0.min.js')}}"></script>#}
+        <script src="{{ url_for('static',filename='js/vendors/modernizr-2.6.2-respond-1.1.0.min.js')}}"></script>
+        <script src="{{ url_for('static',filename='html5.js')}}"></script>
+    </head>
+    
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#">应用汇</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> <i class="caret"></i>
+
+                                </a>
+{#                                <ul class="dropdown-menu">#}
+{#                                    <li>#}
+{#                                        <a tabindex="-1" href="#">Profile</a>#}
+{#                                    </li>#}
+{#                                    <li class="divider"></li>#}
+{#                                    <li>#}
+{#                                        <a tabindex="-1" href="login.html">Logout</a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+                            </li>
+                        </ul>
+                        <ul class="nav">
+                            <li class="active" >
+                                <a href="#">数据支持</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">页面导航<b class="caret"></b>
+
+                                </a>
+                                <ul class="dropdown-menu" id="menu1">
+                                    
+                                    <li class="divider"></li>
+                                 
+                                    <li>
+                                        <a href="/initdownload">原始下载(渠道统计)</a>
+                                    </li>
+                                    <li>
+                                        <a href="/filtdownload">过滤后下载(app统计)</a>
+                                    </li>
+                                    <li>
+                                        <a href="/game_down">游戏下载</a>
+                                    </li>
+                                    <li>
+                                        <a href="/game_down">软件下载</a>
+                                    </li>
+                                    <li>
+                                        <a href="/game_down">分页面下载</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="/channel/channelinfo">渠道查询</a>
+                                    </li>
+                                    <li>
+                                        <a href="/channel/quality">渠道质量</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="/channel/monthlydata">商务经分报告</a></a>
+                                    </li>
+
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="/old_pack">旧版本打包</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="/search">接口监控</a></a>
+                                    </li>
+                                   
+                                    <li>
+                                        <a href="/anticheat_down">下载监控</a>
+                                    </li> 
+                                   
+
+                                </ul>
+                            </li>
+{#                            <li class="dropdown">#}
+{#                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Content <i class="caret"></i>#}
+{##}
+{#                                </a>#}
+{#                                <ul class="dropdown-menu">#}
+{#                                    <li>#}
+{#                                        <a tabindex="-1" href="#">Blog</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a tabindex="-1" href="#">News</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a tabindex="-1" href="#">Custom Pages</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a tabindex="-1" href="#">Calendar</a>#}
+{#                                    </li>#}
+{#                                    <li class="divider"></li>#}
+{#                                    <li>#}
+{#                                        <a tabindex="-1" href="#">FAQ</a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </li>#}
+{#                            <li class="dropdown">#}
+{#                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>#}
+{##}
+{#                                </a>#}
+{#                                <ul class="dropdown-menu">#}
+{#                                    <li>#}
+{#                                        <a tabindex="-1" href="#">User List</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a tabindex="-1" href="#">Search</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a tabindex="-1" href="#">Permissions</a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </li>#}
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span3" id="sidebar">
+                    <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+ 
+                        <li>
+                            <a class="nohover"><span class="badge badge-success pull-left"><i class="icon-user icon-white"></i>下载</span>&nbsp;</a>
+                        </li>
+                         
+
+
+                        {% if title == '原始下载量Top100'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/initdownload"><i class="icon-chevron-right"></i>原始下载(渠道统计)</a>
+                        </li>
+                        {% if title == '过滤后下载监控'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/anticheat_down"><i class="icon-chevron-right"></i>过滤后下载(渠道统计)</a>
+                        </li>
+                         {% if title == '过滤后下载量Top100'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/filtdownload"><i class="icon-chevron-right"></i>过滤后下载(app统计)</a>
+                        </li>
+
+                        {% if title == '游戏下载top20'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/game_down"><i class="icon-chevron-right"></i>游戏下载</a>
+						</li>
+                        {% if title == '软件下载top20'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/soft_down"><i class="icon-chevron-right"></i>软件下载</a>
+						</li>
+                        {% if title == '页面下载'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/page_down"><i class="icon-chevron-right"></i>页面下载</a>
+						</li>
+
+                        
+                        <li>
+                            <a class="nohover"><span class="badge badge-success pull-left"><i class="icon-user icon-white"></i>渠道</span>&nbsp;</a>
+                        </li>
+
+                        {% if title == '渠道查询'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/channel/channelinfo"><i class="icon-chevron-right"></i>渠道查询</a>
+                        </li>
+                         {% if title == '渠道质量'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/channel/quality"><i class="icon-chevron-right"></i>渠道质量</a>
+                        </li>
+
+
+                        <li>
+                            <a class="nohover"><span class="badge badge-success pull-left"><i class="icon-search icon-white"></i>业务</span>&nbsp;</a>
+                        </li>
+
+                        {% if title == '商务包'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/sale/monitor_change"><i class="icon-chevron-right"></i>商务包变更</a>
+                        </li>
+                        {% if title == 'App下载数变更'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/app_download_change">App下载数变更<i class="icon-chevron-right"></i></a>
+                        </li>
+
+
+                         {% if title == '刷量'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/brush/apps"><i class="icon-chevron-right"></i>刷量API</a>
+                        </li>
+
+
+                  
+                        <li>
+                            <a class="nohover"><span class="badge badge-success pull-left"><i class="icon-leaf icon-white"></i>月度数据报表</span>&nbsp;</a>
+                        </li>
+
+                        {% if title == '月度商务经分报告'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/channel/monthlydata"><i class="icon-chevron-right"></i>商务经分报告</a>
+                        </li>
+
+
+                        {% if title == '上传文件'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/file_upload"><i class="icon-chevron-right"></i>文件上传</a>
+                        </li>
+
+
+                         <li>
+                            <a class="nohover"><span class="badge badge-success pull-left"><i class="icon-home icon-white"></i>监控</span>&nbsp;</a>
+                        </li>
+
+                        {% if title == '排期监控'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/paiqi"><i class="icon-chevron-right"></i>排期</a>
+                        </li>
+                            {% if title == 'PersonalCenterTab'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/search"><i class="icon-chevron-right"></i>搜索</a>
+                        </li>
+
+                        <li>
+                            <li>
+                            <a class="nohover"><span class="badge badge-success pull-left"><i class="icon-search icon-white"></i>打包</span>&nbsp;</a>
+                        </li>
+
+                        {% if title == '旧版本打包'%}
+                            <li class="active" >
+                        {% else %}
+                            <li>
+                        {% endif %}
+                            <a href="/old_pack"><i class="icon-chevron-right"></i>旧版本打包</a>
+                        
+                      
+
+
+                    </ul>
+                </div>
+                {% block chart %}{% endblock %}
+            </div>
+            <hr>
+            <footer>
+                <p>&copy; 应用汇 2014</p>
+            </footer>
+        </div>
+        <!--/.fluid-container-->
+        {% block js %} {% endblock %}
+        <style type="text/css">
+        .nohover {
+           background: #f5f5f5;
+        }
+    </style>
+	<hr>
+	<p style="margin-left:auto;" align=center >作者:王海波</p>
+	<p align=center >QQ:393993705   </p>
+	<p align=center >E-mail:haib.wang@hotmail.com</p>
+   </body>
+
+</html>
