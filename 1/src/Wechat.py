@@ -3,7 +3,7 @@
 __author__ = 'WHB'
 
 
-from response import TextReply,WechatReply,MusicReply
+from response import TextReply,WechatReply,MusicReply,ArticleReply
 from message import TextMsg,MSG_TYPES,WechatMsg,ImageMsg,LinkMsg,VideoMsg,VoiceMsg,MusicMsg
 from utils import parse_xml
 import hashlib
@@ -43,8 +43,8 @@ class Wechat():
     def response_video(self, media_id, title=None, description=None):
         pass
 
-    def response_news(self,articles):
-        pass
+    def resp_article(self,articles):
+        return ArticleReply(self.msg,articles).render()
 
 
 
@@ -65,4 +65,8 @@ if __name__ == "__main__":
     musicurl = 'f'
     hqurl = 'fg'
     chat.parse_data(xml)
-    print chat.resp_music(title, desc, musicurl, hqurl)
+    articles = [{'title':u'爱你','desc':u'记忆','picurl':'http://hbnn-hbnnstore.stor.sinaapp.com/boat.jpg',
+                 'url':'http://finance.ifeng.com/a/20150630/13807969_0.shtml'},
+                {'title':u'爱你','desc':u'记忆','picurl':'http://hbnn-hbnnstore.stor.sinaapp.com/europ.jpg',
+                 'url':'http://finance.ifeng.com/a/20150630/13808481_0.shtml'}]
+    print chat.resp_article(articles)

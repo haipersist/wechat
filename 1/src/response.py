@@ -73,13 +73,57 @@ class MusicReply(WechatReply):
         super(MusicReply,self).__init__(metaMsg,title=title,desc=desc,musicurl=musicurl,hqurl=hqurl)
 
     def render(self):
-        print self.reply
         #must keep the right order
         para = (self.reply['toUser'],self.reply['fromUser'],
                 self.reply['time'],self.reply['title'],self.reply['desc'],self.reply['musicurl'],self.reply['hqurl'])
-        #response = make_response(self.reply_xml % para)
-        response =self.reply_xml % para
+        response = make_response(self.reply_xml % para)
+        #response =self.reply_xml % para
         return response
+
+
+
+class ArticleReply(WechatReply):
+    """
+    Article XML
+    """
+    reply_xml = u"""
+    <xml>
+    <ToUserName><![CDATA[%s]]></ToUserName>
+    <FromUserName><![CDATA[%s]]></FromUserName>
+    <CreateTime>%s</CreateTime>
+    <MsgType><![CDATA[news]]></MsgType>
+    <ArticleCount>%d</ArticleCount>
+    <Articles>%s</Articles>
+    <FuncFlag>0</FuncFlag>
+    </xml>
+    """
+    Item_xml = u"""
+    <item>
+    <Title><![CDATA[%s]]></Title>
+    <Description><![CDATA[%s]]></Description>
+    <PicUrl><![CDATA[%s]]></PicUrl>
+    <Url><![CDATA[%s]]></Url>
+    </item>"""
+
+    def __init__(self,metaMsg,items):
+        self.count = len(items)
+        super(ArticleReply,self).__init__(metaMsg,count=self.count,items=items)
+
+    def render(self):
+        if self.count >= 10:
+            raise AttributeError('the num of articles can not suceed 10')
+        Items_tpl = []
+        for item in self.reply['items']:
+            item_tpl = self.Item_xml % (item['title'],item['desc'],
+                                        item['picurl'],item['url'])
+            Items_tpl.append(item_tpl)
+        Items_tpl = ''.join(Items_tpl)
+        para = (self.reply['toUser'],self.reply['fromUser'],
+                self.reply['time'],self.reply['count'],Items_tpl)
+        #return make_response(self.reply_xml % para)
+        return self.reply_xml % para
+
+
 
 
 

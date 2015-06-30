@@ -11,7 +11,7 @@ from music import Music,MusicDict
 
 app = Flask(__name__)
 
-
+xhj = XHJ()
 
 @app.route('/')
 def hello():
@@ -44,6 +44,12 @@ def wechat_auth():
         elif content == u'帮助':
             reply = u'若想收听音乐，请输入音乐,想停止，即输入停止'
             return chat.resp_text(reply)
+        elif content == u'记忆':
+            articles = [{'title':u'爱你','desc':u'记忆','picurl':'http://hbnn-hbnnstore.stor.sinaapp.com/boat.jpg',
+                 'url':'http://blog.sina.com.cn/s/blog_a2356b8b0102vvq3.html'},
+                {'title':u'老婆我爱你','desc':u'记忆','picurl':'http://hbnn-hbnnstore.stor.sinaapp.com/europ.jpg',
+                 'url':'http://finance.ifeng.com/a/20150630/13808481_0.shtml'}]
+            return chat.resp_article(articles)
         else:
             pass
 
@@ -53,7 +59,7 @@ def wechat_auth():
         title, desc, musicurl, hqurl = song['title'],song['desc'],song['url'],song['url']
         return chat.resp_music(title, desc, musicurl, hqurl)
     else:
-        reply = XHJ().resp(content)
+        reply = xhj.resp(content)
         return chat.resp_text(reply)
 
 
